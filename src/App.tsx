@@ -15,7 +15,6 @@ import {
   Autocomplete,
   CircularProgress,
   Typography,
-  Box,
 } from "@mui/material";
 import { TableSkeleton } from "./components/TableSkeleton";
 import { AppStore } from "./stores/AppStore";
