@@ -16,8 +16,8 @@ import {
   CircularProgress,
   Typography,
   Box,
-  Alert,
 } from "@mui/material";
+import { TableSkeleton } from "./components/TableSkeleton";
 import { AppStore } from "./stores/AppStore";
 import { observer } from "mobx-react-lite";
 
@@ -162,26 +162,20 @@ const App = observer(() => {
             <Typography variant="h6" gutterBottom>
               Available Cryptocurrencies
             </Typography>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Symbol</TableCell>
-                    <TableCell align="right">Rank</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {store.loading ? (
+            {store.loading ? (
+              <TableSkeleton />
+            ) : (
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
                     <TableRow>
-                      <TableCell colSpan={3} align="center">
-                        <Box py={3}>
-                          <CircularProgress />
-                        </Box>
-                      </TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell align="right">Symbol</TableCell>
+                      <TableCell align="right">Rank</TableCell>
                     </TableRow>
-                  ) : (
-                    store.coins.slice(0, 10).map((coin) => (
+                  </TableHead>
+                  <TableBody>
+                    {store.coins.slice(0, 10).map((coin) => (
                       <TableRow
                         key={coin.id}
                         sx={{
@@ -194,11 +188,11 @@ const App = observer(() => {
                         <TableCell align="right">{coin.symbol}</TableCell>
                         <TableCell align="right">{coin.rank}</TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
           </Grid>
         </Grid>
       </Container>
