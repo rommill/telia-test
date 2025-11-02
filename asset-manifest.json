@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/telia-test/static/css/main.da898908.css",
-    "main.js": "/telia-test/static/js/main.85534cea.js",
-    "static/js/787.efa33ffd.chunk.js": "/telia-test/static/js/787.efa33ffd.chunk.js",
-    "index.html": "/telia-test/index.html",
-    "main.da898908.css.map": "/telia-test/static/css/main.da898908.css.map",
-    "main.85534cea.js.map": "/telia-test/static/js/main.85534cea.js.map",
-    "787.efa33ffd.chunk.js.map": "/telia-test/static/js/787.efa33ffd.chunk.js.map"
+    "main.css": "./static/css/main.da898908.css",
+    "main.js": "./static/js/main.5823c849.js",
+    "static/js/787.efa33ffd.chunk.js": "./static/js/787.efa33ffd.chunk.js",
+    "index.html": "./index.html",
+    "main.da898908.css.map": "./static/css/main.da898908.css.map",
+    "main.5823c849.js.map": "./static/js/main.5823c849.js.map",
+    "787.efa33ffd.chunk.js.map": "./static/js/787.efa33ffd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.da898908.css",
-    "static/js/main.85534cea.js"
+    "static/js/main.5823c849.js"
   ]
 }
