@@ -14,18 +14,26 @@ A modern, responsive cryptocurrency portfolio management application built with 
 
 ## 📸 Screenshot
 
-![App Screenshot](https://via.placeholder.com/800x400/3d5a80/ffffff?text=Crypto+Portfolio+Tracker)
-_(You can add actual screenshot later)_
+![App Screenshot](./public/images/DarkTheme.png)
+![App Screenshot](./public/images/LightTheme.png)
 
 ## 🚀 Features
 
-- **📊 Real-time Crypto Data** - Fetches live cryptocurrency prices and rankings
-- **💼 Portfolio Management** - Add, track, and manage your cryptocurrency investments
-- **🎨 Modern UI/UX** - Built with Material-UI for a professional look and feel
-- **⚡ Advanced Loading States** - Skeleton screens for optimal user experience
-- **📱 Fully Responsive** - Works perfectly on desktop, tablet, and mobile
-- **🔄 State Management** - Efficient state handling with MobX
-- **🎯 Type Safety** - Full TypeScript implementation for better code quality
+- ** Fully Responsive Design** - Optimized for desktop, tablet, and mobile devices
+- ** Dark/Light Theme** - Toggle between themes with automatic persistence
+- ** Real-time Search** - Filter cryptocurrencies by name or symbol
+- ** Local Storage** - Portfolio automatically saved between sessions
+- ** Modern Loading States** - Skeleton screens for optimal UX
+- ** Material-UI Design** - Professional interface with custom themes
+- ** Error Handling** - User-friendly error messages and recovery
+- ** Portfolio Management** - Add, track, and manage cryptocurrency investments
+
+- ** Real-time Crypto Data** - Fetches live cryptocurrency prices and rankings
+- ** Portfolio Management** - Add, track, and manage your cryptocurrency investments
+- ** Modern UI/UX** - Built with Material-UI for a professional look and feel
+- ** Advanced Loading States** - Skeleton screens for optimal user experience
+- ** State Management** - Efficient state handling with MobX
+- ** Type Safety** - Full TypeScript implementation for better code quality
 
 ## 🛠 Tech Stack
 
