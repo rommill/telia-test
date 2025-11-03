@@ -52,10 +52,12 @@ export class AppStore {
   @observable selectedCoin: Coin | null = null;
   @observable addingToPortfolio: boolean = false;
   @observable searchQuery: string = "";
+  @observable darkMode: boolean = false;
 
   constructor() {
     makeObservable(this);
     this.loadPortfolio();
+    this.loadTheme();
     this.loadCoins();
   }
 
@@ -71,6 +73,17 @@ export class AppStore {
       } catch (error) {
         console.error("Failed to load portfolio:", error);
         this.error = "Failed to load saved portfolio";
+      }
+    }
+  }
+
+  loadTheme() {
+    const saved = localStorage.getItem("darkMode");
+    if (saved) {
+      try {
+        this.darkMode = JSON.parse(saved);
+      } catch (error) {
+        console.error("Failed to load theme:", error);
       }
     }
   }
@@ -123,8 +136,12 @@ export class AppStore {
   };
 
   @action setSearchQuery = (query: string) => {
-    // ← ПЕРЕМЕСТИ ЭТО ВНУТРЬ КЛАССА!
     this.searchQuery = query;
+  };
+
+  @action toggleDarkMode = () => {
+    this.darkMode = !this.darkMode;
+    localStorage.setItem("darkMode", JSON.stringify(this.darkMode));
   };
 
   @action

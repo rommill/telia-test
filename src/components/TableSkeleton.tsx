@@ -13,18 +13,18 @@ import {
 
 export const TableSkeleton: React.FC = () => {
   return (
-    <TableContainer component={Paper}>
-      <Table>
+    <TableContainer component={Paper} className="mobile-table-container">
+      <Table sx={{ minWidth: 400 }}>
         <TableHead>
           <TableRow>
             <TableCell>
-              <Skeleton variant="text" width={100} />
+              <Skeleton variant="text" />
+            </TableCell>
+            <TableCell align="right">
+              <Skeleton variant="text" width={60} />
             </TableCell>
             <TableCell align="right">
               <Skeleton variant="text" width={80} />
-            </TableCell>
-            <TableCell align="right">
-              <Skeleton variant="text" width={100} />
             </TableCell>
           </TableRow>
         </TableHead>
