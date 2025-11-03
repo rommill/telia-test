@@ -54,7 +54,24 @@ export class AppStore {
 
   constructor() {
     makeObservable(this);
-    this.fetchCoins();
+    this.loadPortfolio();
+    this.loadCoins();
+  }
+
+  savePortfolio() {
+    localStorage.setItem("crypto-portfolio", JSON.stringify(this.portfolio));
+  }
+
+  loadPortfolio() {
+    const saved = localStorage.getItem("crypto-portfolio");
+    if (saved) {
+      try {
+        this.portfolio = JSON.parse(saved);
+      } catch (error) {
+        console.error("Failed to load portfolio:", error);
+        this.error = "Failed to load saved portfolio";
+      }
+    }
   }
 
   @computed
@@ -103,6 +120,25 @@ export class AppStore {
   };
 
   @action
+  loadCoins = async () => {
+    this.loading = true;
+    this.error = null;
+
+    try {
+      const response = await coinPaprika.getCoins();
+      runInAction(() => {
+        this.coins = response.data.slice(0, 100);
+        this.loading = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = "Failed to fetch coins. Please try again later.";
+        this.loading = false;
+      });
+    }
+  };
+
+  @action
   fetchCoinPrice = async (coinId: string): Promise<number> => {
     try {
       const response = await coinPaprika.getCoinPrice(coinId);
@@ -118,6 +154,7 @@ export class AppStore {
     if (!this.selectedCoin || this._coinAmount <= 0) return;
 
     this.addingToPortfolio = true;
+    this.error = null;
 
     try {
       const currentPrice = await this.fetchCoinPrice(this.selectedCoin.id);
@@ -130,13 +167,17 @@ export class AppStore {
         price: currentPrice,
       };
 
-      this.portfolio.push(portfolioItem);
-
-      this._coinName = "";
-      this._coinAmount = 0;
-      this.selectedCoin = null;
+      runInAction(() => {
+        this.portfolio.push(portfolioItem);
+        this._coinName = "";
+        this._coinAmount = 0;
+        this.selectedCoin = null;
+        this.savePortfolio();
+      });
     } catch (error) {
-      console.error("Failed to add to portfolio:", error);
+      runInAction(() => {
+        this.error = "Failed to add coin to portfolio. Please try again.";
+      });
     } finally {
       runInAction(() => {
         this.addingToPortfolio = false;
@@ -148,6 +189,7 @@ export class AppStore {
     this.portfolio = this.portfolio.filter(
       (item) => item.id !== portfolioItemId
     );
+    this.savePortfolio();
   };
 
   @action updatePortfolioItemPrice = async (portfolioItemId: string) => {
@@ -156,23 +198,35 @@ export class AppStore {
       const currentPrice = await this.fetchCoinPrice(item.coinId);
       runInAction(() => {
         item.price = currentPrice;
+        this.savePortfolio();
       });
     }
   };
 
   @action updateAllPrices = async () => {
-    const updatePromises = this.portfolio.map(async (item) => {
-      const currentPrice = await this.fetchCoinPrice(item.coinId);
-      return { item, currentPrice };
-    });
+    this.loading = true;
 
-    const results = await Promise.all(updatePromises);
-
-    runInAction(() => {
-      results.forEach(({ item, currentPrice }) => {
-        item.price = currentPrice;
+    try {
+      const updatePromises = this.portfolio.map(async (item) => {
+        const currentPrice = await this.fetchCoinPrice(item.coinId);
+        return { item, currentPrice };
       });
-    });
+
+      const results = await Promise.all(updatePromises);
+
+      runInAction(() => {
+        results.forEach(({ item, currentPrice }) => {
+          item.price = currentPrice;
+        });
+        this.savePortfolio();
+        this.loading = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.error = "Failed to update prices";
+        this.loading = false;
+      });
+    }
   };
 
   getCoinByName(name: string): Coin | undefined {
@@ -183,30 +237,12 @@ export class AppStore {
     return this.coins.find((coin) => coin.id === id);
   }
 
-  @action
-  fetchCoins = async () => {
-    this.loading = true;
-    this.error = null;
-
-    try {
-      const response = await coinPaprika.getCoins();
-      runInAction(() => {
-        this.coins = response.data.slice(0, 100);
-        this.loading = false;
-      });
-    } catch (error) {
-      runInAction(() => {
-        this.error = "Failed to fetch coins";
-        this.loading = false;
-      });
-    }
-  };
-
   @action clearError = () => {
     this.error = null;
   };
 
   @action clearPortfolio = () => {
     this.portfolio = [];
+    this.savePortfolio();
   };
 }

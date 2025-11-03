@@ -40,6 +40,26 @@ const App = observer(() => {
             <Typography variant="h4" component="h1" gutterBottom>
               Crypto Portfolio
             </Typography>
+            {store.error && (
+              <div
+                style={{
+                  padding: "16px",
+                  backgroundColor: "#ffebee",
+                  border: "1px solid #f44336",
+                  borderRadius: "4px",
+                  marginBottom: "16px",
+                }}
+              >
+                <Typography color="error">⚠️ {store.error}</Typography>
+                <Button
+                  size="small"
+                  onClick={() => store.clearError()}
+                  style={{ marginTop: "8px" }}
+                >
+                  Dismiss
+                </Button>
+              </div>
+            )}
           </Grid>
 
           <Grid item container spacing={2}>
@@ -102,6 +122,20 @@ const App = observer(() => {
             <Typography variant="h6" gutterBottom>
               Your Portfolio
             </Typography>
+            {store.portfolio.length > 0 && (
+              <div style={{ marginBottom: "16px" }}>
+                <Button
+                  variant="outlined"
+                  onClick={() => store.updateAllPrices()}
+                  disabled={store.loading}
+                  startIcon={
+                    store.loading ? <CircularProgress size={16} /> : null
+                  }
+                >
+                  {store.loading ? "Updating Prices..." : "Refresh All Prices"}
+                </Button>
+              </div>
+            )}
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -110,12 +144,13 @@ const App = observer(() => {
                     <TableCell align="right">Amount</TableCell>
                     <TableCell align="right">Current Price</TableCell>
                     <TableCell align="right">Total Value</TableCell>
+                    <TableCell align="center">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {store.portfolio.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={4} align="center">
+                      <TableCell colSpan={5} align="center">
                         <Typography color="textSecondary">
                           Your portfolio is empty. Add some coins above!
                         </Typography>
@@ -135,6 +170,20 @@ const App = observer(() => {
                             ? (item.amount * item.price).toFixed(2)
                             : "N/A"}
                         </TableCell>
+                        <TableCell align="center">
+                          <Button
+                            size="small"
+                            color="error"
+                            variant="outlined"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              store.removeFromPortfolio(item.id);
+                            }}
+                            sx={{ minWidth: "80px" }}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))
                   )}
@@ -150,6 +199,7 @@ const App = observer(() => {
                           ${store.totalPortfolioValue.toFixed(2)}
                         </Typography>
                       </TableCell>
+                      <TableCell></TableCell>{" "}
                     </TableRow>
                   )}
                 </TableBody>

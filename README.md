@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# Crypto Portfolio Tracker 🚀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive cryptocurrency portfolio management application built with React, TypeScript, and Material-UI. Features real-time data, advanced loading states, and a sleek user interface.
 
-## Available Scripts
+![React](https://img.shields.io/badge/React-18.2-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Material--UI](https://img.shields.io/badge/Material--UI-5.0-purple)
+![MobX](https://img.shields.io/badge/MobX-6.0-orange)
 
-In the project directory, you can run:
+## ✨ Live Demos
 
-### `npm start`
+- **Main Deployment:** [telia-test.vercel.app](https://telia-test.vercel.app)
+- **GitHub Pages:** [rommill.github.io/telia-test](https://rommill.github.io/telia-test)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📸 Screenshot
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![App Screenshot](https://via.placeholder.com/800x400/3d5a80/ffffff?text=Crypto+Portfolio+Tracker)
+_(You can add actual screenshot later)_
 
-### `npm test`
+## 🚀 Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **📊 Real-time Crypto Data** - Fetches live cryptocurrency prices and rankings
+- **💼 Portfolio Management** - Add, track, and manage your cryptocurrency investments
+- **🎨 Modern UI/UX** - Built with Material-UI for a professional look and feel
+- **⚡ Advanced Loading States** - Skeleton screens for optimal user experience
+- **📱 Fully Responsive** - Works perfectly on desktop, tablet, and mobile
+- **🔄 State Management** - Efficient state handling with MobX
+- **🎯 Type Safety** - Full TypeScript implementation for better code quality
 
-### `npm run build`
+## 🛠 Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React 18** - Modern React with hooks
+- **TypeScript** - Type safety and better developer experience
+- **Material-UI (MUI)** - Component library and styling
+- **MobX** - State management
+- **Axios** - HTTP client for API requests
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Build & Deploy
 
-### `npm run eject`
+- **Create React App** - Build toolchain
+- **Vercel** - Automatic deployments (CI/CD)
+- **GitHub Pages** - Secondary deployment platform
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### APIs
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **CoinGecko API** - Real-time cryptocurrency data
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 📦 Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run this project locally:
 
-## Learn More
+```bash
+# Clone the repository
+git clone https://github.com/rommill/telia-test.git
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Navigate to project directory
+cd telia-test
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+```
