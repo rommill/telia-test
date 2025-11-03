@@ -211,6 +211,23 @@ const App = observer(() => {
             <Typography variant="h6" gutterBottom>
               Available Cryptocurrencies
             </Typography>
+            <TextField
+              label="Search cryptocurrencies..."
+              variant="outlined"
+              fullWidth
+              value={store.searchQuery}
+              onChange={(e) => store.setSearchQuery(e.target.value)}
+              sx={{ mb: 2 }}
+              placeholder="Search by name or symbol..."
+              InputProps={{
+                endAdornment: store.searchQuery ? (
+                  <Button size="small" onClick={() => store.setSearchQuery("")}>
+                    Clear
+                  </Button>
+                ) : null,
+              }}
+            />
+
             {store.loading ? (
               <TableSkeleton />
             ) : (
@@ -224,7 +241,7 @@ const App = observer(() => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {store.coins.slice(0, 10).map((coin) => (
+                    {store.filteredCoins.map((coin) => (
                       <TableRow
                         key={coin.id}
                         sx={{
@@ -238,6 +255,16 @@ const App = observer(() => {
                         <TableCell align="right">{coin.rank}</TableCell>
                       </TableRow>
                     ))}
+                    {store.filteredCoins.length === 0 && store.searchQuery && (
+                      <TableRow>
+                        <TableCell colSpan={3} align="center">
+                          {" "}
+                          <Typography color="textSecondary">
+                            No cryptocurrencies found for "{store.searchQuery}"
+                          </Typography>
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </TableContainer>

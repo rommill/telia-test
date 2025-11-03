@@ -51,6 +51,7 @@ export class AppStore {
   @observable portfolio: PortfolioItem[] = [];
   @observable selectedCoin: Coin | null = null;
   @observable addingToPortfolio: boolean = false;
+  @observable searchQuery: string = "";
 
   constructor() {
     makeObservable(this);
@@ -86,13 +87,15 @@ export class AppStore {
 
   @computed
   get filteredCoins(): Coin[] {
-    if (!this._coinName) return this.coins.slice(0, 10);
+    if (!this.searchQuery && !this._coinName) return this.coins.slice(0, 10);
+
+    const query = this.searchQuery || this._coinName;
 
     return this.coins
       .filter(
         (coin) =>
-          coin.name.toLowerCase().includes(this._coinName.toLowerCase()) ||
-          coin.symbol.toLowerCase().includes(this._coinName.toLowerCase())
+          coin.name.toLowerCase().includes(query.toLowerCase()) ||
+          coin.symbol.toLowerCase().includes(query.toLowerCase())
       )
       .slice(0, 10);
   }
@@ -117,6 +120,11 @@ export class AppStore {
     if (coin) {
       this._coinName = coin.name;
     }
+  };
+
+  @action setSearchQuery = (query: string) => {
+    // ← ПЕРЕМЕСТИ ЭТО ВНУТРЬ КЛАССА!
+    this.searchQuery = query;
   };
 
   @action
