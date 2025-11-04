@@ -52,7 +52,6 @@ const App = observer(() => {
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
       <div className="App">
-        {/* Упрощенный AppBar */}
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -75,7 +74,6 @@ const App = observer(() => {
 
         <Container maxWidth="lg" sx={{ py: 3 }}>
           <Grid container spacing={3}>
-            {/* Блок ошибок */}
             <Grid item xs={12}>
               {store.error && (
                 <Paper
@@ -107,7 +105,6 @@ const App = observer(() => {
               )}
             </Grid>
 
-            {/* Форма добавления */}
             <Grid item xs={12}>
               <Paper sx={{ p: 3 }}>
                 <Grid container spacing={2} alignItems="center">
@@ -149,9 +146,21 @@ const App = observer(() => {
                       variant="outlined"
                       type="number"
                       fullWidth
-                      value={store.coinAmount}
+                      value={store.coinAmount === 0 ? "" : store.coinAmount}
                       onChange={(e) => store.setCoinAmount(e.target.value)}
+                      onBlur={(e) => {
+                        if (
+                          e.target.value === "" ||
+                          isNaN(parseFloat(e.target.value))
+                        ) {
+                          store.setCoinAmount("0");
+                        }
+                      }}
                       placeholder="0.5, 1, 2.5"
+                      inputProps={{
+                        min: "0",
+                        step: "0.1",
+                      }}
                     />
                   </Grid>
 
@@ -170,7 +179,6 @@ const App = observer(() => {
               </Paper>
             </Grid>
 
-            {/* Портфель */}
             <Grid item xs={12}>
               <Paper sx={{ p: 3 }}>
                 <Box
@@ -266,7 +274,6 @@ const App = observer(() => {
               </Paper>
             </Grid>
 
-            {/* Доступные криптовалюты */}
             <Grid item xs={12}>
               <Paper sx={{ p: 3 }}>
                 <Typography variant="h6" gutterBottom>
